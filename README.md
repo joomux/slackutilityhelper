@@ -27,8 +27,8 @@ Performs a mathematical calculation based on 2 input numbers
 **Value of X:** The value of the first number in the equation
 **Value of Y:** The value of the second number in the equation
 **Operator:** The calculation to perform
-* + Add them together
-* - Subtract Y from X
+* \+ Add them together
+* \- Subtract Y from X
 * x Multiple them together
 * ÷ X divided by Y (X/Y)
 * ^ Raise X to the power of Y

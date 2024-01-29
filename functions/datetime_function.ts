@@ -34,7 +34,7 @@ export const DatetimeFunctionDefinition = DefineFunction({
       },
       user: {
         type: Schema.slack.types.user_id,
-        title: "Current user",
+        title: "Relative to user",
         description: "Select 'user running this workflow' for best results",
         hint: "Uses this user for time zone offset calculation",
       },

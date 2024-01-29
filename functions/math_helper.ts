@@ -9,13 +9,13 @@ export const MathHelperFunctionDefiniton = DefineFunction({
     properties: {
       number_x: {
         type: Schema.types.number,
-        title: "A value of X",
+        title: "Value of X",
         description: "An integer or decimal",
         hint: "First argument into equation",
       },
       number_y: {
         type: Schema.types.number,
-        title: "A value of Y",
+        title: "Value of Y",
         description: "An integer or decimal",
         hint: "Second argument into equation",
       },

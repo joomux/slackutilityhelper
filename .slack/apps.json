@@ -1,0 +1,12 @@
+{
+  "apps": {
+    "T033AC5BB37": {
+      "app_id": "A06DYBW3JSV",
+      "enterprise_id": "E033RT6S6TT",
+      "IsDev": false,
+      "team_domain": "global-demo-2017",
+      "team_id": "T033AC5BB37"
+    }
+  },
+  "default": "global-demo-2017"
+}

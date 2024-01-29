@@ -1,4 +1,4 @@
-# Utility Helper for Slack Workflow Builer
+# Utility Helper for Slack Workflow Builder
 
 This project adds support for user-relative date/time calculations to allow for dynamic dates being calculated, as well as handling math.
 

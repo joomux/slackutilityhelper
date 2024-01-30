@@ -83,10 +83,17 @@ export default SlackFunction(
     // need to get time zone of user for that
     const user_obj = await client.users.info({ user: user });
 
-    const d = new Date();
+    console.log(user_obj.user);
+
     const dt = datetime();
-    dt.toZonedTime(user_obj.tz);
+    dt.toZonedTime(user_obj.user.tz);
     const curr_weekday_num = +dt.format("w");
+
+    let hours_to_add = 0;
+    // if (user_obj.tz_label.match(/Daylight/ig)) {
+    //   // add an hour???
+    //   hours_to_add = 0;
+    // }
 
     console.log("user time zone", user_obj.user.tz);
     console.log("day of week selected: ", day_of_week);
@@ -108,6 +115,7 @@ export default SlackFunction(
     const new_dt = dt.add({
       weeks: jump_forward_weeks + weeks_to_add,
       day: days_to_add,
+      hour: hours_to_add,
     });
 
     console.log("date after adding days: ", new_dt.format("YYYY-MM-dd HH:mm"));

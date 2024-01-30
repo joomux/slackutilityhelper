@@ -67,7 +67,7 @@ export const GetNextDateFunctionDefinition = DefineFunction({
       },
       time_value: {
         type: Schema.types.string,
-        title: "Pretty Time",
+        title: "UTC Time",
       },
     },
     required: ["date_value", "timestamp_value"],
@@ -89,15 +89,16 @@ export default SlackFunction(
     dt.toZonedTime(user_obj.user.tz);
     const curr_weekday_num = +dt.format("w");
 
-    let hours_to_add = 0;
-    // if (user_obj.tz_label.match(/Daylight/ig)) {
-    //   // add an hour???
-    //   hours_to_add = 0;
-    // }
-
     console.log("user time zone", user_obj.user.tz);
     console.log("day of week selected: ", day_of_week);
     console.log("day of week current: ", curr_weekday_num);
+
+    let hours_to_add = 0;
+    if (user_obj.user.tz_label.toString().match(/Daylight/ig)) {
+      // add an hour???
+      console.log("we are in DST time, add an hour");
+      hours_to_add = 1;
+    }
 
     const days_to_add = +day_of_week - curr_weekday_num;
     let weeks_to_add = 0;
@@ -124,31 +125,40 @@ export default SlackFunction(
     const month = +new_dt.format("M");
     const day = +new_dt.format("d");
     const timezone = user_obj.user.tz.toString();
+    // const timezone = "T" + user_obj.user.tz_offset / 3600;
 
     // let's rip apart the time!
     let hour = +time.split(":")[0];
     const minute = +time.split(":")[1].split(" ")[0];
 
+    const meridian = time.split(":")[1].split(" ")[1].toUpperCase();
+
+    console.log("meridian", meridian);
+
     if (
-      hour < 12 && time.split(":")[1].split(" ")[1].toLocaleUpperCase() == "PM"
+      hour < 12 && meridian == "PM"
     ) {
+      console.log("adding 12 to the hours");
       hour += 12;
     }
 
-    const final_dt = datetime({
+    console.log("setting hour to", hour);
+    console.log("using time zone", timezone);
+
+    let final_dt = datetime({
       year: year,
       month: month,
       day: day,
-      hour: hour,
+      hour: hour, // + hours_to_add,
       minute: minute,
       second: 0,
-      // timezone: timezone,
     });
-    final_dt.toZonedTime(timezone);
+    final_dt = final_dt.subtract({ hour: 12 }).add({ hour: hours_to_add }); // why this adjustment??
+    // final_dt = final_dt.toZonedTime(timezone);
 
     const date_value = final_dt.format("YYYY-MM-dd");
     const timestamp_value = Math.round(+final_dt.format("X"));
-    const time_value = final_dt.format("hh:mm a");
+    const time_value = final_dt.format("h:mm a");
 
     console.log("date_value =", date_value);
     console.log("timestamp_value =", timestamp_value);

@@ -62,9 +62,6 @@ export const DatetimeFunctionDefinition = DefineFunction({
   },
 });
 
-/**
- * TODO: add timezone support with default to current
- */
 export default SlackFunction(
   DatetimeFunctionDefinition,
   async ({ client, inputs }) => {

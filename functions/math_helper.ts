@@ -22,6 +22,13 @@ export const MathHelperFunctionDefiniton = DefineFunction({
       operator: {
         type: Schema.types.string,
         enum: ["+", "-", "x", "÷", "^"],
+        choices: [
+          { value: "+", title: "X + Y", description: "X plus Y" },
+          { value: "-", title: "X - Y", description: "X minus Y" },
+          { value: "x", title: "X x Y", description: "X multiplied by Y" },
+          { value: "÷", title: "X ÷ Y", description: "X divided by Y" },
+          { value: "^", title: "X^Y", description: "X to the power of Y" },
+        ],
         title: "Operator",
         description: "Choose operator",
         hint: "X [operator] Y",

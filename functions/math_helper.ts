@@ -1,6 +1,6 @@
 import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
 
-export const MathHelperFunctionDefiniton = DefineFunction({
+export const MathHelperFunctionDefinition = DefineFunction({
   callback_id: "math_helper_function",
   title: "Do maths",
   description: "Perform basic mathematical operations",
@@ -21,13 +21,15 @@ export const MathHelperFunctionDefiniton = DefineFunction({
       },
       operator: {
         type: Schema.types.string,
-        enum: ["+", "-", "x", "÷", "^"],
+        enum: ["+", "-", "x", "÷", "^", "sqrt", "log"],
         choices: [
           { value: "+", title: "X + Y", description: "X plus Y" },
           { value: "-", title: "X - Y", description: "X minus Y" },
           { value: "x", title: "X x Y", description: "X multiplied by Y" },
           { value: "÷", title: "X ÷ Y", description: "X divided by Y" },
           { value: "^", title: "X^Y", description: "X to the power of Y" },
+          { value: "sqrt", title: "X root Y", description: "X to the root of Y" },
+          { value: "log", title: "Log X", description: "Log of X" }, 
         ],
         title: "Operator",
         description: "Choose operator",
@@ -48,13 +50,13 @@ export const MathHelperFunctionDefiniton = DefineFunction({
 });
 
 export default SlackFunction(
-  MathHelperFunctionDefiniton,
+  MathHelperFunctionDefinition,
   ({ inputs }) => {
     const { number_x, number_y, operator } = inputs;
 
     // console.log("inputs ", inputs);
 
-    let answer = null;
+    let answer = 0;
     switch (operator) {
       case "-":
         answer = number_x - number_y;
@@ -67,6 +69,12 @@ export default SlackFunction(
         break;
       case "^":
         answer = Math.pow(number_x, number_y);
+        break;
+      case "sqrt":
+        answer = Math.pow(number_x, 1/number_y);
+        break;
+      case "log":
+        answer = Math.log(number_x);
         break;
       case "+":
       default:

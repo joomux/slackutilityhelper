@@ -164,10 +164,15 @@ export default SlackFunction(
     const month = d.getMonth() < 10 ? `0${d.getMonth() + 1}` : d.getMonth() + 1;
     const minutes = d.getMinutes() < 10 ? `0${d.getMinutes()}` : d.getMinutes();
 
-    // build output vars
-    const date_value = `${d.getFullYear()}-${month}-${day}`;
-    const timestamp_value = Math.floor((d.getTime() - tz_offset) / 1000);
-    const time_value = `${d.getHours()}:${minutes}:00`;
+  // build output vars
+  const date_value = `${d.getFullYear()}-${month}-${day}`;
+  const timestamp_value = Math.floor((d.getTime() - tz_offset) / 1000);
+  
+  // Format time in human-readable 12-hour format (e.g., 8:00am, 11:23pm)
+  const hours24 = d.getHours();
+  const hours12 = hours24 === 0 ? 12 : hours24 > 12 ? hours24 - 12 : hours24;
+  const ampm = hours24 >= 12 ? "pm" : "am";
+  const time_value = `${hours12}:${minutes}${ampm}`;
 
     debug(
       client,

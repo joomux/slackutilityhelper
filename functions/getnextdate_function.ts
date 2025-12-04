@@ -1,5 +1,5 @@
 import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
-import { datetime } from "https://deno.land/x/ptera/mod.ts";
+import { datetime } from "ptera/mod.ts";
 
 export const GetNextDateFunctionDefinition = DefineFunction({
   callback_id: "getnextdate_function",

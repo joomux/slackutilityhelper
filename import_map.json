@@ -1,9 +1,10 @@
 {
   "imports": {
-    "deno-slack-sdk/": "https://deno.land/x/deno_slack_sdk@2.5.0/",
-    "deno-slack-api/": "https://deno.land/x/deno_slack_api@2.1.2/",
-    "std/": "https://deno.land/std@0.208.0/",
+    "deno-slack-sdk/": "https://deno.land/x/deno_slack_sdk@2.15.1/",
+    "deno-slack-api/": "https://deno.land/x/deno_slack_api@2.8.0/",
+    "std/": "https://deno.land/std@0.224.0/",
     "mock-fetch/": "https://deno.land/x/mock_fetch@0.3.0/",
-    "datetime/": "https://deno.land/std@0.213.0/datetime/mod.ts"
+    "ptera/": "https://deno.land/x/ptera/",
+    "expr-eval/": "https://deno.land/x/expr_eval@1.0.0/"
   }
 }

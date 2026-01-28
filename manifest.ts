@@ -5,6 +5,7 @@ import { DatetimeFunctionDefinition } from "./functions/datetime_function.ts";
 import { GetNextDateFunctionDefinition } from "./functions/getnextdate_function.ts";
 import { MathHelperFunctionDefinition } from "./functions/math_helper.ts";
 import { MathExpressionFunctionDefinition } from "./functions/math_expression.ts";
+import { DatediffFunctionDefinition } from "./functions/datediff_function.ts";
 
 export default Manifest({
   name: "Utility Helper",
@@ -15,6 +16,7 @@ export default Manifest({
     GetNextDateFunctionDefinition,
     MathHelperFunctionDefinition,
     MathExpressionFunctionDefinition,
+    DatediffFunctionDefinition,
   ],
   outgoingDomains: [],
   botScopes: [

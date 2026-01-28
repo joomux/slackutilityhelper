@@ -15,6 +15,12 @@ export const DatetimeFunctionDefinition = DefineFunction({
   source_file: "functions/datetime_function.ts",
   input_parameters: {
     properties: {
+      reference_date: {
+        type: Schema.slack.types.date,
+        title: "Reference Date",
+        description: "Starting point for calculation (leave empty to use current date)",
+        hint: "The date to calculate from. If not provided, uses the time the workflow runs",
+      },
       relative_count: {
         type: Schema.types.integer,
         title: "Value Difference",
@@ -66,7 +72,7 @@ export default SlackFunction(
   DatetimeFunctionDefinition,
   async ({ client, inputs }) => {
     // console.log("here we go", inputs);
-    const { relative_count, relative_unit, time_specific, user } = inputs;
+    const { reference_date, relative_count, relative_unit, time_specific, user } = inputs;
     debug(client, `inputs: ${JSON.stringify(inputs)}`);
     debug(
       client,
@@ -80,8 +86,16 @@ export default SlackFunction(
     debug(client, "type of tz_offset " + typeof user_obj.user.tz_offset);
     debug(client, `user object ${JSON.stringify(user_obj)}`);
 
-    // get current datetime
-    const d = new Date();
+    // get current datetime or use reference_date if provided
+    let d: Date;
+    if (reference_date) {
+      d = new Date(reference_date);
+      debug(client, `Using reference date: ${reference_date}`);
+    } else {
+      d = new Date();
+      debug(client, `Using current date/time`);
+    }
+    
     debug(client, `Current date: ${d.getDate()}`);
     debug(client, `current UTC time: ${d.getTime()}`);
     debug(

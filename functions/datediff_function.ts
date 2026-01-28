@@ -53,8 +53,13 @@ export const DatediffFunctionDefinition = DefineFunction({
         title: "Unit Used",
         description: "The unit of time used for the calculation",
       },
+      is_anniversary: {
+        type: Schema.types.boolean,
+        title: "Is Anniversary",
+        description: "True if Date2 has the same month and day as Date1",
+      },
     },
-    required: ["difference", "unit_used"],
+    required: ["difference", "unit_used", "is_anniversary"],
   },
 });
 
@@ -144,12 +149,18 @@ export default SlackFunction(
     // Round to the specified number of decimal places
     const roundedDifference = Number(difference.toFixed(places));
     
+    // Check if Date2 is an anniversary of Date1 (same month and day)
+    const isAnniversary = startDate.getMonth() === endDate.getMonth() && 
+                          startDate.getDate() === endDate.getDate();
+    
     debug(client, `difference in ${unit}: ${roundedDifference}`);
+    debug(client, `is anniversary: ${isAnniversary}`);
 
     return { 
       outputs: { 
         difference: roundedDifference,
         unit_used: unit,
+        is_anniversary: isAnniversary,
       } 
     };
   },
